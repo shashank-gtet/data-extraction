@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Result - SEHSS 2025</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f9f9f9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .card {
+            background: #fff;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card h2 {
+            text-align: center;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+            margin-top: 15px;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 6px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .captcha {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .captcha img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 44px;
+        }
+
+        .captcha input {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background: #3498db;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.25s ease;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .error-box {
+            background: #fff;
+            border: 2px solid #ff6b6b;
+            color: #c0392b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 420px;
+        }
+
+        .error-box h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .error-box span {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+        <div class="card">
+        <h2>RESULT<br>Standard Examination in High School Science (SEHSS) 2025</h2>
+
+        <form action="download_result.php" method="post" onsubmit="return validateForm()">
+            <label for="rollno">Roll Number:</label>
+            <input type="text" name="rollno" id="rollno" maxlength="11" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')" placeholder="Enter Roll Number" style="text-transform: uppercase;">
+
+            <p>-------------------------OR--------------------------</p>
+
+            <label for="rollno">Mobile Number:</label>
+            <input type="text" name="mobileno" id="mobileno" maxlength="10" pattern="\d{10}" oninput="this.value=this.value.replace(/[^0-9]/g,'')" placeholder="Enter Mobile Number" style="text-transform: uppercase;">
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" name="dob" id="dob">
+
+            <div class="captcha">
+                <img src="roll_no_captcha.php" alt="Captcha">
+                <input type="text" name="captcha" id="captcha" placeholder="Enter Captcha">
+            </div>
+
+            <button type="submit">Download Result</button>
+        </form>
+    </div>
+        <!-- <div class="error-box">
+            <h2>❌ Nothing to Preview</h2>
+            <span>Please check your access link or code.</span>
+        </div> -->
+        <script>
+        function validateForm() {
+            let roll = document.getElementById("rollno").value.trim();
+            let mob = document.getElementById("mobileno").value.trim();
+            let dob = document.getElementById("dob").value.trim();
+            let captcha = document.getElementById("captcha").value.trim();
+
+            if (roll === "" && mob === "") {
+                alert("Please enter at least Roll No OR Mobile No.");
+                return false;
+            }
+
+            if (dob === "") {
+                alert("Please enter Date of Birth.");
+                return false;
+            }
+
+            if (captcha === "") {
+                alert("Please enter captcha.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>
